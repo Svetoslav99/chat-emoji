@@ -9,7 +9,6 @@ import { contextProps } from "@trpc/react-query/shared";
 import { LoadingPage, LoadingSpinner } from "y/components/loading";
 import { api, RouterOutputs } from "y/utils/api";
 import { toast } from "react-hot-toast";
-import Link from "next/link";
 
 dayjs.extend(relativeTime);
 
@@ -94,14 +93,10 @@ const PostView = (props: PostWithUser) => {
       />
       <div className="flex flex-col">
         <div className="flex gap-1 text-slate-300">
-          <Link href={`/@${author.username}`}>
-            <span>{`@${author.username}`}</span>
-          </Link>
-          <Link href={`/post/${post.id}`}>
-            <span className="font-thin">{` · ${dayjs(
-              post.createdAt
-            ).fromNow()}`}</span>
-          </Link>
+          <span>{`@${author.username}`}</span>
+          <span className="font-thin">{` · ${dayjs(
+            post.createdAt
+          ).fromNow()}`}</span>
         </div>
         <span className="text-2xl">{post.content}</span>
       </div>
@@ -127,7 +122,7 @@ const Feed = () => {
   );
 };
 
-const Home: NextPage = () => {
+const SinglePostPage: NextPage = () => {
   const { isLoaded: userLoaded, isSignedIn } = useUser();
 
   // Start fetching asap (with react query we can start fetching early, it will then cache the result so that we can use it later.)
@@ -160,4 +155,4 @@ const Home: NextPage = () => {
     </>
   );
 };
-export default Home;
+export default SinglePostPage;
